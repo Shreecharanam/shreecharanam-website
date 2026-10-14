@@ -377,6 +377,12 @@ footer.site{background:var(--maroon-deep);color:rgba(255,255,255,.72);padding:64
   @page{margin:14mm}
 }
 
+.co-lead{font-size:.92rem;color:var(--ink-soft);margin-bottom:16px}
+.co-err{background:#fdecea;border:1px solid #e0a19b;color:#8a2f2a;font-size:.85rem;border-radius:10px;padding:10px 12px;margin-top:4px}
+.req{color:var(--maroon);font-weight:700}
+.field-bad{border-color:#c0392b !important;box-shadow:0 0 0 3px rgba(192,57,43,.15) !important}
+.inv-toolbar button.upi{background:#5f259f;color:#fff;border-color:transparent}
+
 /* ---------- Toast ---------- */
 .toast{position:fixed;bottom:28px;left:50%;transform:translate(-50%,140%);background:var(--maroon-deep);color:#fff;padding:14px 24px;border-radius:999px;font-size:.9rem;font-weight:500;box-shadow:var(--shadow-lg);z-index:150;transition:transform .4s cubic-bezier(.2,.9,.3,1.2);display:flex;align-items:center;gap:10px}
 .toast.show{transform:translate(-50%,0)}
@@ -728,39 +734,42 @@ footer.site{background:var(--maroon-deep);color:rgba(255,255,255,.72);padding:64
 <div class="overlay" id="overlay" onclick="closeCart()"></div>
 <aside class="drawer" id="drawer" aria-label="Shopping cart">
   <div class="drawer-head">
-    <h3 data-en="Your basket" data-hi="Aapki tokri">Your basket</h3>
+    <h3 id="drawerTitle" data-en="Your basket" data-hi="Aapki tokri">Your basket</h3>
     <button class="close" onclick="closeCart()" aria-label="Close">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
     </button>
   </div>
   <div class="drawer-body" id="cartBody">
     <div id="cartItems"></div>
-    <details class="buyer-details">
-      <summary data-en="Add details for the invoice (optional)" data-hi="Invoice ke liye details jodein (optional)">Add details for the invoice (optional)</summary>
-      <div class="bd-inner">
-        <div class="field"><label data-en="Name" data-hi="Naam">Name</label><input id="bName" type="text" data-en-ph="Your name" data-hi-ph="Aapka naam" placeholder="Your name"></div>
-        <div class="field"><label data-en="Phone / WhatsApp" data-hi="Phone / WhatsApp">Phone / WhatsApp</label><input id="bPhone" type="tel" data-en-ph="10-digit mobile" data-hi-ph="10 ank ka mobile" placeholder="10-digit mobile"></div>
-        <div class="field"><label data-en="Email" data-hi="Email">Email</label><input id="bEmail" type="email" data-en-ph="you@example.com" data-hi-ph="aap@example.com" placeholder="you@example.com"></div>
-        <div class="field"><label data-en="Delivery address" data-hi="Delivery pata">Delivery address</label><textarea id="bAddr" data-en-ph="House, street, city, PIN" data-hi-ph="Makan, gali, shehar, PIN" placeholder="House, street, city, PIN"></textarea></div>
-        <div class="field"><label data-en="State (for GST)" data-hi="Rajya (GST ke liye)">State (for GST)</label><select id="bState"><option>Andhra Pradesh</option><option>Arunachal Pradesh</option><option>Assam</option><option>Bihar</option><option>Chhattisgarh</option><option>Goa</option><option>Gujarat</option><option selected>Haryana</option><option>Himachal Pradesh</option><option>Jharkhand</option><option>Karnataka</option><option>Kerala</option><option>Madhya Pradesh</option><option>Maharashtra</option><option>Manipur</option><option>Meghalaya</option><option>Mizoram</option><option>Nagaland</option><option>Odisha</option><option>Punjab</option><option>Rajasthan</option><option>Sikkim</option><option>Tamil Nadu</option><option>Telangana</option><option>Tripura</option><option>Uttar Pradesh</option><option>Uttarakhand</option><option>West Bengal</option><option>Andaman and Nicobar Islands</option><option>Chandigarh</option><option>Dadra and Nagar Haveli and Daman and Diu</option><option>Delhi</option><option>Jammu and Kashmir</option><option>Ladakh</option><option>Lakshadweep</option><option>Puducherry</option></select></div>
-        <div class="field"><label data-en="GSTIN (optional)" data-hi="GSTIN (optional)">GSTIN (optional)</label><input id="bGstin" type="text" data-en-ph="Your GSTIN, if any" data-hi-ph="Aapka GSTIN, agar ho" placeholder="Your GSTIN, if any"></div>
-      </div>
-    </details>
+    <div id="checkoutPanel" style="display:none">
+      <p class="co-lead" data-en="Please add your delivery details so we can send your order." data-hi="Delivery ke liye apni details bhar dijiye, taaki hum order bhej sakein.">Please add your delivery details so we can send your order.</p>
+      <div class="field"><label><span data-en="Name" data-hi="Naam">Name</span> <span class="req">*</span></label><input id="bName" type="text" data-en-ph="Your name" data-hi-ph="Aapka naam" placeholder="Your name"></div>
+      <div class="field"><label><span data-en="Phone / WhatsApp" data-hi="Phone / WhatsApp">Phone / WhatsApp</span> <span class="req">*</span></label><input id="bPhone" type="tel" data-en-ph="10-digit mobile" data-hi-ph="10 ank ka mobile" placeholder="10-digit mobile"></div>
+      <div class="field"><label><span data-en="Delivery address" data-hi="Delivery pata">Delivery address</span> <span class="req">*</span></label><textarea id="bAddr" data-en-ph="House, street, village/city, PIN" data-hi-ph="Makan, gali, gaon/shehar, PIN" placeholder="House, street, village/city, PIN"></textarea></div>
+      <div class="field"><label><span data-en="State (for GST)" data-hi="Rajya (GST ke liye)">State (for GST)</span></label><select id="bState"><option>Andhra Pradesh</option><option>Arunachal Pradesh</option><option>Assam</option><option>Bihar</option><option>Chhattisgarh</option><option>Goa</option><option>Gujarat</option><option selected>Haryana</option><option>Himachal Pradesh</option><option>Jharkhand</option><option>Karnataka</option><option>Kerala</option><option>Madhya Pradesh</option><option>Maharashtra</option><option>Manipur</option><option>Meghalaya</option><option>Mizoram</option><option>Nagaland</option><option>Odisha</option><option>Punjab</option><option>Rajasthan</option><option>Sikkim</option><option>Tamil Nadu</option><option>Telangana</option><option>Tripura</option><option>Uttar Pradesh</option><option>Uttarakhand</option><option>West Bengal</option><option>Andaman and Nicobar Islands</option><option>Chandigarh</option><option>Dadra and Nagar Haveli and Daman and Diu</option><option>Delhi</option><option>Jammu and Kashmir</option><option>Ladakh</option><option>Lakshadweep</option><option>Puducherry</option></select></div>
+      <div class="field"><label><span data-en="Email (optional)" data-hi="Email (optional)">Email (optional)</span></label><input id="bEmail" type="email" data-en-ph="you@example.com" data-hi-ph="aap@example.com" placeholder="you@example.com"></div>
+      <div class="field"><label><span data-en="GSTIN (optional)" data-hi="GSTIN (optional)">GSTIN (optional)</span></label><input id="bGstin" type="text" data-en-ph="Your GSTIN, if any" data-hi-ph="Aapka GSTIN, agar ho" placeholder="Your GSTIN, if any"></div>
+      <p class="co-err" id="coErr" style="display:none"></p>
+    </div>
   </div>
   <div class="drawer-foot">
     <div class="cart-total"><span data-en="Subtotal" data-hi="Kul jod">Subtotal</span><b id="cartTotal">₹0</b></div>
     <p class="cart-note" data-en="Prices include GST · Free shipping above ₹799." data-hi="Daam mein GST shaamil · ₹799 se upar free shipping.">Prices include GST · Free shipping above ₹799.</p>
-    
-    <button class="btn btn-gold" onclick="placeOrder('invoice')">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2h9l5 5v15H6z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h4"/></svg>
-      <span data-en="Place order &amp; get invoice" data-hi="Order karein aur invoice paayein">Place order &amp; get invoice</span>
-    </button>
-    <p class="btn-hint" data-en="The invoice opens and the order goes to our WhatsApp — just tap Send." data-hi="Invoice khulega aur order hamare WhatsApp par chala jaayega — bas Send dabaiye.">The invoice opens and the order goes to our WhatsApp — just tap Send.</p>
-    <button class="btn wa-btn" onclick="placeOrder('whatsapp')">
-      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12a9 9 0 0 1-13.3 7.9L3 21l1.1-4.7A9 9 0 1 1 21 12z"/><path d="M8.5 9.5c0 3 2 5 5 5"/></svg>
-      <span data-en="Order on WhatsApp" data-hi="WhatsApp par order karein">Order on WhatsApp</span>
-    </button>
-    <button class="btn btn-dark" onclick="closeCart()" data-en="Continue shopping" data-hi="Shopping jaari rakhein">Continue shopping</button>
+    <div id="footCart">
+      <button class="btn btn-gold" onclick="showCheckout()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        <span data-en="Proceed to order" data-hi="Order ke liye aage badhein">Proceed to order</span>
+      </button>
+      <button class="btn btn-dark" onclick="closeCart()" data-en="Continue shopping" data-hi="Shopping jaari rakhein">Continue shopping</button>
+    </div>
+    <div id="footCheckout" style="display:none">
+      <button class="btn btn-gold" onclick="placeOrder('invoice')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2h9l5 5v15H6z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h4"/></svg>
+        <span data-en="Place order &amp; get invoice" data-hi="Order karein aur invoice paayein">Place order &amp; get invoice</span>
+      </button>
+      <p class="btn-hint" data-en="The invoice opens and the order goes to our WhatsApp — just tap Send." data-hi="Invoice khulega aur order hamare WhatsApp par chala jaayega — bas Send dabaiye.">The invoice opens and the order goes to our WhatsApp — just tap Send.</p>
+      <button class="btn btn-dark" onclick="showCart()" data-en="Back to basket" data-hi="Tokri par wapas jaayein">Back to basket</button>
+    </div>
   </div>
 </aside>
 
@@ -769,6 +778,7 @@ footer.site{background:var(--maroon-deep);color:rgba(255,255,255,.72);padding:64
   <div class="inv-modal">
     <div class="inv-toolbar">
       <button class="primary" onclick="printInvoice()" data-en="Print / Save PDF" data-hi="Print / PDF save karein">Print / Save PDF</button>
+      <button class="upi" onclick="payViaUpi()" data-en="Pay via UPI" data-hi="UPI se payment">Pay via UPI</button>
       <button class="wa" onclick="sendInvoiceWhatsApp('shop')" data-en="Send to shop on WhatsApp" data-hi="Dukaan ko WhatsApp par bhejein">Send to shop on WhatsApp</button>
       <button id="invSelfBtn" class="wa" onclick="sendInvoiceWhatsApp('self')" data-en="Send invoice to my WhatsApp" data-hi="Invoice mere WhatsApp par bhejein">Send invoice to my WhatsApp</button>
       <button onclick="closeInvoice()" data-en="Close" data-hi="Band karein">Close</button>
@@ -791,6 +801,7 @@ const CONFIG = {
   gstRate: 5,                        // GST % on spices — please CONFIRM with your CA
   pricesIncludeGst: true,            // true = the prices shown already include GST
   freeShippingAbove: 799,
+  upi: "shreecharanam@upi",       // <-- apna asli UPI ID yahan daalein
   business: {
     name: "Shreecharanam Vedic Spices",     // brand / trade name shown on the site
     legalName: "SHREE CHARANAM",            // registered name (as per GST)
@@ -1070,6 +1081,7 @@ function renderCart(){
   document.getElementById("cartTotal").textContent = CONFIG.currency + cartTotal();
 }
 function openCart(){
+  showCart();
   document.getElementById("drawer").classList.add("open");
   document.getElementById("overlay").classList.add("open");
   document.body.style.overflow = "hidden";
@@ -1078,6 +1090,65 @@ function closeCart(){
   document.getElementById("drawer").classList.remove("open");
   document.getElementById("overlay").classList.remove("open");
   document.body.style.overflow = "";
+}
+function setDrawerTitle(en, hi){
+  var t = document.getElementById("drawerTitle");
+  if(!t) return;
+  t.setAttribute("data-en", en); t.setAttribute("data-hi", hi);
+  t.textContent = (LANG === "hi") ? hi : en;
+}
+function showCart(){
+  var ci=document.getElementById("cartItems"), cp=document.getElementById("checkoutPanel");
+  var fc=document.getElementById("footCart"), fk=document.getElementById("footCheckout");
+  if(ci) ci.style.display=""; if(cp) cp.style.display="none";
+  if(fc) fc.style.display=""; if(fk) fk.style.display="none";
+  setDrawerTitle("Your basket","Aapki tokri");
+  var b=document.getElementById("cartBody"); if(b) b.scrollTop=0;
+}
+function showCheckout(){
+  if(cart.length === 0){ showToast(LANG==='en' ? "Your basket is empty" : "Aapki tokri khaali hai"); return; }
+  var ci=document.getElementById("cartItems"), cp=document.getElementById("checkoutPanel");
+  var fc=document.getElementById("footCart"), fk=document.getElementById("footCheckout");
+  if(ci) ci.style.display="none"; if(cp) cp.style.display="";
+  if(fc) fc.style.display="none"; if(fk) fk.style.display="";
+  setDrawerTitle("Delivery details","Delivery details");
+  var b=document.getElementById("cartBody"); if(b) b.scrollTop=0;
+  var n=document.getElementById("bName"); if(n) n.focus();
+}
+function flashField(id){
+  var el=document.getElementById(id); if(!el) return;
+  el.classList.add("field-bad");
+  el.addEventListener("input", function h(){ el.classList.remove("field-bad"); el.removeEventListener("input", h); });
+}
+function validateBuyer(){
+  var b = getBuyer();
+  var phoneOk = normPhone(b.phone).length >= 12;
+  var miss = [];
+  if(!b.name) miss.push(LANG==='en' ? "Name" : "Naam");
+  if(!phoneOk) miss.push(LANG==='en' ? "Phone" : "Phone");
+  if(!b.address) miss.push(LANG==='en' ? "Address" : "Pata");
+  var err = document.getElementById("coErr");
+  if(miss.length){
+    if(err){
+      err.style.display = "block";
+      err.textContent = (LANG==='en' ? "Please fill: " : "Kripya ye bharein: ") + miss.join(", ");
+    }
+    if(!b.name) flashField("bName");
+    if(!phoneOk) flashField("bPhone");
+    if(!b.address) flashField("bAddr");
+    return false;
+  }
+  if(err) err.style.display = "none";
+  return true;
+}
+function payViaUpi(){
+  if(!CONFIG.upi || CONFIG.upi.indexOf("@") < 0){ showToast(LANG==='en' ? "UPI id not set yet" : "UPI id abhi set nahi hai"); return; }
+  var t = computeTotals();
+  var link = "upi://pay?pa=" + encodeURIComponent(CONFIG.upi)
+    + "&pn=" + encodeURIComponent(CONFIG.business.name)
+    + "&am=" + t.total.toFixed(2) + "&cu=INR"
+    + "&tn=" + encodeURIComponent("Invoice " + currentInvoiceNo);
+  window.location.href = link;
 }
 let currentInvoiceNo = "";
 function money(n){ return CONFIG.currency + Number(n).toFixed(2); }
@@ -1145,7 +1216,9 @@ function invoiceText(){
   str += "Taxable value: " + money(t.taxable) + "\n";
   if(t.intra){ str += "CGST @" + (t.rate/2) + "%: " + money(t.cgst) + "\nSGST @" + (t.rate/2) + "%: " + money(t.sgst) + "\n"; }
   else { str += "IGST @" + t.rate + "%: " + money(t.igst) + "\n"; }
-  str += "Total (incl. GST): " + money(t.total) + "\n\nCustomer details:\n";
+  str += "Total (incl. GST): " + money(t.total) + "\n";
+  if(CONFIG.upi) str += "Pay via UPI: " + CONFIG.upi + "\n";
+  str += "\nCustomer details:\n";
   if(buyer.name) str += "Name: " + buyer.name + "\n";
   if(buyer.phone) str += "Phone: " + buyer.phone + "\n";
   if(buyer.email) str += "Email: " + buyer.email + "\n";
@@ -1192,10 +1265,11 @@ function buildInvoiceHTML(){
         '<div class="grand"><span>Total</span><span>' + money(t.total) + '</span></div>' +
       '</div>' +
     '</div>' +
-    '<div class="inv-foot">Prices are inclusive of GST. This is a computer-generated invoice.<br>Thank you for shopping with Shreecharanam.</div>';
+    '<div class="inv-foot">Prices are inclusive of GST. This is a computer-generated invoice.<br>Pay via UPI: <b>' + (CONFIG.upi || "") + '</b><br>Thank you for shopping with Shreecharanam.</div>';
 }
 function placeOrder(mode){
   if(cart.length === 0){ showToast(LANG==='en' ? "Your basket is empty" : "Aapki tokri khaali hai"); return; }
+  if(!validateBuyer()){ showToast(LANG==='en' ? "Please fill your delivery details" : "Kripya apni delivery details bharein"); return; }
   currentInvoiceNo = invoiceNo();
   if(mode === "invoice"){
     document.getElementById("invoiceBody").innerHTML = buildInvoiceHTML();
