@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://shreecharanam.github.io/shreecharanam-website/sitemap.xml
