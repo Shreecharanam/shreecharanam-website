@@ -236,7 +236,8 @@ header.site.scrolled{box-shadow:0 8px 30px -20px rgba(69,18,28,.5)}
 .contact-line .ic{flex:none;width:44px;height:44px;border-radius:12px;background:var(--surface-2);display:grid;place-items:center;border:1px solid var(--border)}
 .contact-line .ic svg{width:20px;height:20px;color:var(--gold)}
 .contact-line b{display:block;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-dim);font-weight:600}
-.contact-line span{font-size:.98rem;color:var(--ink)}
+.contact-line span{font-size:.98rem;color:var(--ink);overflow-wrap:anywhere}
+.contact-line>span:last-child{min-width:0}
 .form{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:36px;box-shadow:var(--shadow-sm)}
 .form h3{font-size:1.4rem;color:var(--maroon-deep);margin-bottom:6px}
 .form .sub{font-size:.9rem;color:var(--ink-soft);margin-bottom:24px}
@@ -400,11 +401,25 @@ footer.site{background:var(--maroon-deep);color:rgba(255,255,255,.72);padding:64
   .contact-grid{grid-template-columns:1fr;gap:40px}
   .foot-grid{grid-template-columns:1fr 1fr;gap:32px}
 }
-@media(max-width:760px){
-  .nav-links{position:fixed;top:78px;left:0;right:0;background:var(--bg);flex-direction:column;gap:0;padding:0 24px;max-height:0;overflow:hidden;transition:max-height .4s ease;border-bottom:1px solid var(--border);box-shadow:var(--shadow-md)}
+@media(max-width:900px){
+  .wrap{padding:0 16px}
+  .nav{gap:10px;height:64px}
+  .nav-links{position:fixed;top:64px;left:0;right:0;background:var(--bg);flex-direction:column;gap:0;padding:0 16px;max-height:0;overflow:hidden;transition:max-height .4s ease;border-bottom:1px solid var(--border);box-shadow:var(--shadow-md)}
   .nav-links.open{max-height:340px}
   .nav-links a{padding:16px 0;width:100%;border-bottom:1px solid var(--border)}
-  .burger{display:flex}
+  .brand{gap:9px;min-width:0}
+  .brand-name{white-space:nowrap}
+  .nav-tools{gap:9px}
+  .burger{display:flex;padding:6px}
+}
+@media(max-width:760px){
+  .brand-mark{width:34px;height:34px}
+  .brand-name{font-size:1rem}
+  .brand-sub{display:none}
+  .nav-tools{gap:8px}
+  .lang-toggle button{padding:5px 9px;font-size:.72rem}
+  .cart-btn{padding:7px 11px;font-size:.8rem;gap:6px}
+  .cart-btn span.label{display:none}
   .section{padding:68px 0}
   .gift-badge b{font-size:2.6rem}
   .steps{grid-template-columns:1fr}
