@@ -733,10 +733,8 @@ footer.site{background:var(--maroon-deep);color:rgba(255,255,255,.72);padding:64
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
     </button>
   </div>
-  <div class="drawer-body" id="cartBody"></div>
-  <div class="drawer-foot">
-    <div class="cart-total"><span data-en="Subtotal" data-hi="Kul jod">Subtotal</span><b id="cartTotal">₹0</b></div>
-    <p class="cart-note" data-en="Prices include GST · Free shipping above ₹799." data-hi="Daam mein GST shaamil · ₹799 se upar free shipping.">Prices include GST · Free shipping above ₹799.</p>
+  <div class="drawer-body" id="cartBody">
+    <div id="cartItems"></div>
     <details class="buyer-details">
       <summary data-en="Add details for the invoice (optional)" data-hi="Invoice ke liye details jodein (optional)">Add details for the invoice (optional)</summary>
       <div class="bd-inner">
@@ -748,6 +746,11 @@ footer.site{background:var(--maroon-deep);color:rgba(255,255,255,.72);padding:64
         <div class="field"><label data-en="GSTIN (optional)" data-hi="GSTIN (optional)">GSTIN (optional)</label><input id="bGstin" type="text" data-en-ph="Your GSTIN, if any" data-hi-ph="Aapka GSTIN, agar ho" placeholder="Your GSTIN, if any"></div>
       </div>
     </details>
+  </div>
+  <div class="drawer-foot">
+    <div class="cart-total"><span data-en="Subtotal" data-hi="Kul jod">Subtotal</span><b id="cartTotal">₹0</b></div>
+    <p class="cart-note" data-en="Prices include GST · Free shipping above ₹799." data-hi="Daam mein GST shaamil · ₹799 se upar free shipping.">Prices include GST · Free shipping above ₹799.</p>
+    
     <button class="btn btn-gold" onclick="placeOrder('invoice')">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2h9l5 5v15H6z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h4"/></svg>
       <span data-en="Place order &amp; get invoice" data-hi="Order karein aur invoice paayein">Place order &amp; get invoice</span>
@@ -1037,7 +1040,7 @@ function cartCount(){ return cart.reduce((s,c)=> s + c.qty, 0); }
 
 function renderCart(){
   document.getElementById("cartCount").textContent = cartCount();
-  const body = document.getElementById("cartBody");
+  const body = document.getElementById("cartItems");
   if(cart.length === 0){
     body.innerHTML = `<div class="empty-cart">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 6h15l-1.5 9h-12z"/><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M6 6 5 3H2"/></svg>
